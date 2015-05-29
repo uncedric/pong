@@ -25,7 +25,7 @@ extern "C" {
 
     public:
 
-        Barra(int _alto, int _ancho, float _posX, float _posY,std::string _name,float _vel):alto(_alto),ancho(_ancho),posX(_posX),posY(_posY),nombre(_name),vel(_vel){
+        Barra(int _alto, int _ancho, float _posX, float _posY,int _vida, std::string _name,float _vel):alto(_alto),ancho(_ancho),posX(_posX),posY(_posY),vida(_vida),nombre(_name),vel(_vel){
         ALTO = 50;
         ANCHO = 50;
     }
@@ -47,21 +47,27 @@ extern "C" {
         posY += vel;
         //posY -= vel; para contexto gráfico
     }
-     void mueveAbajo(){
-        posY -= vel;
-        //posY += vel; para contexto gráfico
-    }
-      void perderVida(float _fuerza){
-        vida -= _fuerza; //es la fuerza con la que golpea la pelota
+    void mueveAbajo(){
+      posY -= vel;
+      //posY += vel; para contexto gráfico
     }
 
-      void checaColision(){
-        if (posY + alto >= ALTO){
-            mueveArriba();
-        }
-        if(posY - alto <= ALTO){
-            mueveAbajo();
-        }
+    void perderVida(float _fuerza){
+      vida -= _fuerza; //es la fuerza con la que golpea la pelota
+    }
+
+    void checaColision(){
+      if (posY + alto >= ALTO){
+          mueveArriba();
+      }
+      if(posY - alto <= ALTO){
+          mueveAbajo();
+      }
+    }
+
+    void actualiza() {
+      posY += vel;
+      checaColision();
     }
 
     void Imprime()
@@ -70,6 +76,7 @@ extern "C" {
       std::cout << "Y: " << posY << std::endl;
       std::cout << "Vida: " << vida << std::endl;
     }
+
 
     };
 
